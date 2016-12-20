@@ -6,47 +6,6 @@ var NYC = {
     lat: 40.765001,
     lng: -73.978514
 };
-// function initMap() {
-
-
-//   map = new google.maps.Map(document.getElementById('map'), {
-//     center: NYC,
-//     zoom: 15
-//   });
-
-
-//   infowindow = new google.maps.InfoWindow();
-// var service = new google.maps.places.PlacesService(map);
-// service.nearbySearch({
-//   location: NYC,
-//   radius: 500,
-//   type: ['store']
-// }, callback);
-// }
-
-// function callback(results, status) {
-//   if (status === google.maps.places.PlacesServiceStatus.OK) {
-
-//     for (var i = 0; i < results.length; i++) {
-//       // console.log(results[i]);
-//       createMarker(results[i]);
-//     }
-//   }
-//   console.log(places);
-// }
-
-// function createMarker(place) {
-//   var placeLoc = place.geometry.location;
-//   var marker = new google.maps.Marker({
-//     map: map,
-//     position: place.geometry.location
-//   });
-
-//   google.maps.event.addListener(marker, 'click', function() {
-//     infowindow.setContent(place.name);
-//     infowindow.open(map, this);
-//   });
-// }
 
 function viewModel() {
     var self = this;
@@ -87,6 +46,13 @@ function viewModel() {
             type: ['movie_theater']
         }, callback);
 
+        google.maps.event.addDomListener(window, "resize", function() {
+            var center = map.getCenter();
+            google.maps.event.trigger(map, "resize");
+            map.setCenter(center);
+        });
+
+
         function callback(results, status) {
             if (status === google.maps.places.PlacesServiceStatus.OK) {
                 for (var i = 0; i < results.length; i++) {
@@ -99,8 +65,8 @@ function viewModel() {
     }
 
     self.selectPlace = function(place) {
-        for(index in markers) {
-            if(markers[index].title === place.name){
+        for (index in markers) {
+            if (markers[index].title === place.name) {
                 google.maps.event.trigger(markers[index], 'click');
             }
         }
@@ -145,7 +111,7 @@ function viewModel() {
             console.log(venueData);
 
             infowindow.setContent("<div> <h2>Near By Coffee Shop</h2> <div>Name:<span>" + venueData.name + "</span></div> <div>Rating:<span>" + venueData.rating + "</span></div> <div>Location:<span>" + venueData.location.address + ',' + venueData.location.city + "</span></div> </div>");
-        }).fail(function(){
+        }).fail(function() {
             infowindow.setContent("<div> <h3>Sorry, We are having issue with the API provider</h3> </div>");
             alert("Error: Sorry, We are having issue with the API provider ");
         })
