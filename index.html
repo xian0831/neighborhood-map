@@ -13,9 +13,10 @@
 
 <body>
     <div id="map"></div>
-    <div id="over_map">
+    <div id="over-map">
         <input placeholder="Search…" type="search" data-bind="value: query, valueUpdate: 'keyup'" autocomplete="off" class="form-control">
-        <ul data-bind="foreach: places" class="list-group">
+        <button class="btn btn-default"><a href="#list" data-toggle="collapse">Show Marker List</a></button>
+        <ul data-bind="foreach: places" class="list-group collapse in" id="list">
             <li data-bind="text: name, attr: {'id': $index}, click: $parent.selectPlace" class="list-group-item">
             </li>
         </ul>
@@ -24,7 +25,7 @@
     <script src="https://code.jquery.com/jquery-2.2.4.js" integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI=" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.3.0/knockout-min.js"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAcI3v9B77gtWIowDlH29d8UHcWpTDd6wk&libraries=places"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAcI3v9B77gtWIowDlH29d8UHcWpTDd6wk&libraries=places&callback=initApp" async defer></script>
     <script type="text/javascript" src="map.js"></script>
 
 </body>

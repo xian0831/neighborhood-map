@@ -60,6 +60,8 @@ function viewModel() {
                     markers.push(createMarker(results[i]));
                 }
                 ko.utils.arrayPushAll(self.places, places);
+            } else {
+                alert("Sorry, It seemes we have issue loading Google Map Place API :(");
             }
         }
     }
@@ -120,11 +122,19 @@ function viewModel() {
 };
 
 
+function initApp() {
+    $(document).ready(function() {
+        var vm = new viewModel();
+        ko.applyBindings(vm);
+        vm.initMap();
+        vm.query.subscribe(vm.search);
+    });
+}
 
-
-$(document).ready(function() {
-    var vm = new viewModel();
-    ko.applyBindings(vm);
-    vm.initMap();
-    vm.query.subscribe(vm.search);
-});
+function checkGMapsLoad() {
+    if( !window.google ) {
+        alert("Sorry, It seemes we have issue loading Google Map :(")
+    }
+}
+// Check if google maps loaded properly in 3 seconds
+window.setTimeout( checkGMapsLoad, 3000 );
