@@ -123,7 +123,9 @@ function viewModel() {
 
 
 function initApp() {
+
     $(document).ready(function() {
+        console.log('test');
         var vm = new viewModel();
         ko.applyBindings(vm);
         vm.initMap();
@@ -131,10 +133,6 @@ function initApp() {
     });
 }
 
-function checkGMapsLoad() {
-    if( !window.google ) {
-        alert("Sorry, It seemes we have issue loading Google Map :(")
-    }
+function mapError() {
+    alert("Sorry, It seemes we have issue loading Google Map :(")
 }
-// Check if google maps loaded properly in 3 seconds
-window.setTimeout( checkGMapsLoad, 3000 );
